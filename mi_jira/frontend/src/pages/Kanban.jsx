@@ -7,7 +7,7 @@ import { STATUSES } from '../data/constants';
 import styles from './Kanban.module.css';
 
 export default function Kanban() {
-  const { tasks, createTask, updateTask, deleteTask } = useTasks();
+  const { tasks, createTask, updateTask, deleteTask, moveTask } = useTasks();
 
   const [dialog, setDialog] = useState({ open: false, task: null, defaultStatus: 'todo' });
   const [search, setSearch] = useState('');
@@ -32,9 +32,9 @@ export default function Kanban() {
   };
 
   const handleDropTask = (taskId, newStatus) => {
-    const task = tasks.find(t => t.id === taskId);
+    const task = tasks.find(t => String(t.id) === String(taskId));
     if (task && task.status !== newStatus) {
-      updateTask(taskId, { ...task, status: newStatus });
+      moveTask(task.id, newStatus);
     }
   };
 

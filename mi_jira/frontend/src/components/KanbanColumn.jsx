@@ -21,8 +21,10 @@ export function KanbanColumn({ status, tasks, onAddTask, onEditTask, onDeleteTas
     e.preventDefault();
     e.stopPropagation();
     setIsDragOver(false);
-    const taskId = parseInt(e.dataTransfer.getData('taskId'), 10);
-    onDropTask(taskId, status.id);
+    
+    // CAMBIO CRÍTICO: Leemos el ID como String para soportar formatos de Jira (ej: "1" o "TASK-101")
+    const taskId = e.dataTransfer.getData('taskId');
+    if (taskId) onDropTask(taskId, status.id);
   };
 
   return (
@@ -55,7 +57,7 @@ export function KanbanColumn({ status, tasks, onAddTask, onEditTask, onDeleteTas
               onDelete={onDeleteTask}
               onDragStart={(e) => {
                 e.dataTransfer.effectAllowed = 'move';
-                e.dataTransfer.setData('taskId', task.id);
+                e.dataTransfer.setData('taskId', String(task.id));
               }}
             />
           ))
