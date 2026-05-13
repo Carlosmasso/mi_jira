@@ -1,199 +1,51 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
-
-/* ═══════════════════════════════════════════
-   RETRO PIXEL THEME — TaskFlow 8bit Edition
-   ═══════════════════════════════════════════ */
-
-:root {
-  --bg:          #0d0d1a;
-  --bg-panel:    #12122a;
-  --bg-card:     #1a1a35;
-  --bg-hover:    #22224a;
-
-  --green:       #39ff14;
-  --cyan:        #00e5ff;
-  --yellow:      #ffe600;
-  --orange:      #ff6b00;
-  --red:         #ff2d55;
-  --purple:      #bf5fff;
-  --pink:        #ff2d8a;
-
-  --text:        #c8c8e8;
-  --text-dim:    #7070a8;
-  --text-bright: #ffffff;
-
-  --border:      #3a3a6a;
-  --border-glow: #5050c0;
-
-  --pixel: 'Press Start 2P', monospace;
-  --vt:    'VT323', monospace;
-  --mono:  ui-monospace, Consolas, monospace;
-
-  /* Status column accent colors */
-  --col-backlog:    #7070a8;
-  --col-todo:       #ffe600;
-  --col-progress:   #00e5ff;
-  --col-complete:   #39ff14;
-  --col-blocked:    #ff2d55;
-}
-
-/* ── Reset & Base ───────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', Roboto, sans-serif;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
 body {
-  background-color: var(--bg);
-  color: var(--text);
-  font-family: var(--vt);
-  font-size: 18px;
+  background: #f3f4f6;
+  color: #111827;
   line-height: 1.5;
-  min-height: 100vh;
-  /* scanlines */
-  background-image:
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(0, 0, 0, 0.18) 2px,
-      rgba(0, 0, 0, 0.18) 4px
-    );
 }
 
 #root {
-  width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* ── Typography ─────────────────────────── */
-h1, h2, h3 {
-  font-family: var(--pixel);
-  color: var(--text-bright);
-  text-shadow: 0 0 8px var(--cyan), 0 0 20px var(--cyan);
-  letter-spacing: 0.04em;
+button, input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
 }
 
-h1 { font-size: 20px; }
-h2 { font-size: 13px; }
-h3 { font-size: 10px; }
+/* Scrollbars */
+::-webkit-scrollbar        { width: 6px; height: 6px; }
+::-webkit-scrollbar-track  { background: transparent; }
+::-webkit-scrollbar-thumb  { background: #d1d5db; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
 
-p { margin: 0; }
 
-a {
-  color: var(--cyan);
-  text-decoration: none;
-}
-a:hover {
-  text-decoration: underline;
-  text-shadow: 0 0 6px var(--cyan);
-}
-
-/* ── Pixel Borders ──────────────────────── */
-.pixel-border {
-  border: 3px solid var(--border-glow);
-  box-shadow:
-    inset 0 0 0 1px var(--bg-panel),
-    0 0 0 1px var(--bg-panel),
-    0 0 12px rgba(80, 80, 192, 0.4);
-}
-
-/* ── Scrollbar (retro) ───────────────────── */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-::-webkit-scrollbar-track {
-  background: var(--bg-panel);
-  border: 1px solid var(--border);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--border-glow);
-  border: 1px solid var(--bg);
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--cyan);
-}
-
-/* ── Buttons ────────────────────────────── */
-.btn {
-  font-family: var(--pixel);
-  font-size: 9px;
+select {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 13px;
+  background: #fff;
+  color: #374151;
   cursor: pointer;
-  padding: 8px 14px;
-  background: var(--bg-panel);
-  color: var(--cyan);
-  border: 2px solid var(--cyan);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  transition: background 0.1s, color 0.1s, box-shadow 0.1s;
-  image-rendering: pixelated;
-}
-.btn:hover {
-  background: var(--cyan);
-  color: var(--bg);
-  box-shadow: 0 0 12px var(--cyan);
-}
-.btn-danger {
-  color: var(--red);
-  border-color: var(--red);
-}
-.btn-danger:hover {
-  background: var(--red);
-  color: #fff;
-  box-shadow: 0 0 12px var(--red);
-}
-.btn-success {
-  color: var(--green);
-  border-color: var(--green);
-}
-.btn-success:hover {
-  background: var(--green);
-  color: var(--bg);
-  box-shadow: 0 0 12px var(--green);
+  transition: border-color 0.15s;
 }
 
-/* ── Inputs / Selects ───────────────────── */
-input, select, textarea {
-  font-family: var(--vt);
-  font-size: 16px;
-  background: var(--bg-card);
-  color: var(--text-bright);
-  border: 2px solid var(--border);
-  padding: 6px 10px;
+select:focus {
   outline: none;
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
-input:focus, select:focus, textarea:focus {
-  border-color: var(--cyan);
-  box-shadow: 0 0 8px rgba(0, 229, 255, 0.35);
-}
-
-/* ── Animations ─────────────────────────── */
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0; }
-}
-@keyframes glitch {
-  0%  { text-shadow: 2px 0 var(--red), -2px 0 var(--cyan); }
-  20% { text-shadow: -2px 0 var(--red), 2px 0 var(--cyan); }
-  40% { text-shadow: 2px 2px var(--purple), -2px -2px var(--yellow); }
-  60% { text-shadow: -2px 0 var(--red), 2px 0 var(--cyan); }
-  80% { text-shadow: 0 0 var(--red), 0 0 var(--cyan); }
-  100%{ text-shadow: 2px 0 var(--red), -2px 0 var(--cyan); }
-}
-@keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to   { transform: translateY(0);    opacity: 1; }
-}
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-@keyframes scanIn {
-  from { clip-path: inset(0 0 100% 0); }
-  to   { clip-path: inset(0 0 0% 0); }
+  border-color: #3b82f6;
 }
